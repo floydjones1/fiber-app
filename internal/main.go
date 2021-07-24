@@ -12,6 +12,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"xorm.io/xorm"
 )
 
 func Start() {
@@ -24,6 +25,11 @@ func Start() {
 		ReadTimeout:   time.Second * 5,
 	})
 
+	_, err := xorm.NewEngine("postgres", "localhost:5432")
+	if err != nil {
+		fmt.Errorf(err.Error())
+		return
+	}
 	// only fork under production mode
 	// if !fiber.IsChild() {
 	// 	fmt.Println("I'm the parent pcess")

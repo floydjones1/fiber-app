@@ -1,0 +1,12 @@
+# Use postgres/example user/password credentials
+version: '1'
+
+services:
+
+  db:
+    image: postgres:14beta2-alpine3.14
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: library

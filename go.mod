@@ -8,4 +8,5 @@ require (
 	github.com/klauspost/compress v1.13.1 // indirect
 	github.com/valyala/fasthttp v1.28.0 // indirect
 	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect
+	xorm.io/xorm v1.1.2
 )
