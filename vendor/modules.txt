@@ -1,6 +1,8 @@
 # github.com/andybalholm/brotli v1.0.3
 ## explicit
 github.com/andybalholm/brotli
+# github.com/go-sql-driver/mysql v1.6.0
+## explicit
 # github.com/gofiber/fiber/v2 v2.15.0
 ## explicit
 github.com/gofiber/fiber/v2
@@ -23,11 +25,13 @@ github.com/json-iterator/go
 github.com/klauspost/compress/flate
 github.com/klauspost/compress/gzip
 github.com/klauspost/compress/zlib
-# github.com/lib/pq v1.7.0
+# github.com/lib/pq v1.10.2
 ## explicit
 github.com/lib/pq
 github.com/lib/pq/oid
 github.com/lib/pq/scram
+# github.com/mattn/go-sqlite3 v1.14.8
+## explicit
 # github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421
 github.com/modern-go/concurrent
 # github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742

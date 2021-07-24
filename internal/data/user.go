@@ -4,30 +4,36 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/rs/zerolog/log"
 	"xorm.io/xorm"
 )
 
 type User struct {
-	ID        int64
+	Id        int64
 	Name      string
-	DOB       time.Time
+	Dob       time.Time
 	Age       int64
 	IsMarried bool
+	Sexuality string
+}
+
+func (m *User) TableName() string {
+	return "user"
 }
 
 type UserStore struct {
 	db *xorm.Engine
 }
 type UserStorer interface {
-	GetUser(int64) error
+	GetUser(int64) (User, error)
 }
 
-func (u *UserStore) GetUser(id int64) error {
+func (u *UserStore) GetUser(id int64) (User, error) {
 	user := new(User)
-	has, err := u.db.Get(user)
-	if has {
-		fmt.Println("found user")
+	_, err := u.db.Get(user)
+	if err != nil {
+		log.Err(err).Msgf("failed to find user")
 	}
 	fmt.Println(err)
-	return err
+	return *user, err
 }

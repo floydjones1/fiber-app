@@ -14,15 +14,17 @@ type Stores struct {
 }
 
 const (
-	host     = "localhost"
-	port     = 5432
-	user     = "postgres"
-	password = "password"
-	dbName   = "library"
+	pghost     = "localhost"
+	pgport     = 5432
+	pguser     = "postgres"
+	pgpassword = "password"
+	pgdbName   = "library"
 )
 
+var engine *xorm.Engine
+
 func InitializeDB() (*Stores, error) {
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbName)
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", pghost, pgport, pguser, pgpassword, pgdbName)
 	engine, err := xorm.NewEngine("postgres", psqlInfo)
 	if err != nil {
 		return nil, err
@@ -39,4 +41,9 @@ func InitializeDB() (*Stores, error) {
 	}
 
 	return stores, nil
+}
+
+func SyncStructs(db *xorm.Engine) error {
+	db.Sync()
+	return db.Sync2(new(User))
 }

@@ -16,7 +16,7 @@ import (
 )
 
 func Start() {
-	// Default level for this example is info, unless debug flag is present
+	// Control this based on yaml file def in and consumed
 	zerolog.SetGlobalLevel(zerolog.InfoLevel)
 
 	log.Debug().Msg("This message appears only when log level set to Debug")
@@ -26,7 +26,7 @@ func Start() {
 		Prefork:       false,
 		CaseSensitive: true,
 		StrictRouting: true,
-		ServerHeader:  "Test App v1.0.1",
+		ServerHeader:  "Test App v1.0.0",
 		// ErrorHandler: ,
 		AppName:     "Fiber",
 		ReadTimeout: time.Second * 5,
@@ -57,6 +57,10 @@ func Start() {
 
 	db, err := data.InitializeDB()
 	if err != nil {
+		log.Err(err)
+		return
+	}
+	if err := data.SyncStructs(db.DB); err != nil {
 		log.Err(err)
 		return
 	}
