@@ -5,7 +5,8 @@ This app is to be used as a boiler plate for a golang web server using go-fiber 
 Other pieces of tools used are:
 ```
 go-fiber
-sqlx & GORM
+xorm
+zeroLog
 modd
 docker
 postgres
@@ -15,5 +16,6 @@ make
 ## How to start App?
 
 ```
+make up
 make start
 ```
