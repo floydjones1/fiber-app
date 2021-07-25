@@ -70,6 +70,9 @@ github.com/valyala/tcplisten
 golang.org/x/sys/internal/unsafeheader
 golang.org/x/sys/unix
 golang.org/x/sys/windows
+# gopkg.in/yaml.v2 v2.2.2
+## explicit
+gopkg.in/yaml.v2
 # xorm.io/builder v0.3.8
 xorm.io/builder
 # xorm.io/xorm v1.1.2

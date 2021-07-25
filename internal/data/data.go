@@ -3,6 +3,7 @@ package data
 import (
 	"fmt"
 
+	"github.com/floydjones1/fiber-app/config"
 	_ "github.com/lib/pq"
 	"xorm.io/xorm"
 )
@@ -13,19 +14,11 @@ type Stores struct {
 	BookStore
 }
 
-const (
-	pghost     = "localhost"
-	pgport     = 5432
-	pguser     = "postgres"
-	pgpassword = "password"
-	pgdbName   = "library"
-)
-
 var engine *xorm.Engine
 
-func InitializeDB() (*Stores, error) {
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", pghost, pgport, pguser, pgpassword, pgdbName)
-	engine, err := xorm.NewEngine("postgres", psqlInfo)
+func InitializeDB(dbConf config.Database) (*Stores, error) {
+	connectionInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", dbConf.Host, dbConf.Port, dbConf.Username, dbConf.Password, dbConf.DatabaseName)
+	engine, err := xorm.NewEngine("postgres", connectionInfo)
 	if err != nil {
 		return nil, err
 	}

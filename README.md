@@ -1,5 +1,7 @@
-# Golang Web Server Demo (go-fiber) [![license](https://img.shields.io/github/license/DAVFoundation/captain-n3m0.svg?style=flat-square)](https://github.com/DAVFoundation/captain-n3m0/blob/master/LICENSE)
+# Golang Web Server Demo (go-fiber) [![license](https://img.shields.io/github/license/DAVFoundation/captain-n3m0.svg?style=flat-square)](https://github.com/DAVFoundation/captain-n3m0/blob/master/LICENSE) [![GitHub go.mod Go version of a Go module](https://img.shields.io/github/go-mod/go-version/gomods/athens.svg)](https://github.com/floydjones1/fiber-app)
+
 This app is to be used as a boiler plate for a golang web server using go-fiber to drive the major piece. Creation of routes and handlers should look familiar if you ever have ever made an express web server.
+Now given that it follows express that doesn't mean you should follow javascript standards here. This is still GoLang, so things are different intentionally.
 
 ## Why I think this makes a really good starting point?
 1. [go-fiber](https://github.com/gofiber/fiber) has amazing benchmarks for performance and has other supporting modules that are available for JWT auth, swagger docs, rate limiter and more!
@@ -18,7 +20,7 @@ xorm <-- ORM/Database Client
 goose <-- Database Migration
 zeroLog <-- Logging
 modd <-- Live Reload
-docker <-- dev environemnt
+docker <-- dev environment
 postgres <-- Database
 make <-- dev tool
 ```
@@ -30,3 +32,7 @@ make tools <-- Downloads required go binaries
 make up <-- Startup Postgres 
 make start <-- Runs go-fiber
 ```
+
+### Package Structure inspiration was taken from 
+1. [Standard Go Project Layout](https://github.com/golang-standards/project-layout)
+2. [Package Oriented Design](https://www.youtube.com/watch?v=spKM5CyBwJA)

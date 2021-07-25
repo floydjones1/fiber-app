@@ -12,5 +12,6 @@ require (
 	github.com/rs/zerolog v1.23.0
 	github.com/valyala/fasthttp v1.28.0 // indirect
 	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect
+	gopkg.in/yaml.v2 v2.2.2
 	xorm.io/xorm v1.1.2
 )

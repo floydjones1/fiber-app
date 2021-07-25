@@ -1,12 +1,14 @@
 package library
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
 
+	"github.com/floydjones1/fiber-app/config"
 	"github.com/floydjones1/fiber-app/internal/data"
 	"github.com/floydjones1/fiber-app/internal/library/routes"
 	"github.com/gofiber/fiber/v2"
@@ -16,51 +18,25 @@ import (
 )
 
 func Start() {
-	// Control this based on yaml file def in and consumed
+	var configPath string
+	flag.StringVar(&configPath, "config", "./config/local.yml", "path to config file")
+	flag.Parse()
+
+	config, err := config.GetConfig(configPath)
+	if err != nil {
+		log.Fatal().Err(err).Msg("failed to parse config")
+	}
 	zerolog.SetGlobalLevel(zerolog.InfoLevel)
+	log.Debug().Msg("Loaded config....Starting up server")
 
-	log.Debug().Msg("This message appears only when log level set to Debug")
-	log.Info().Msg("This message appears when log level set to Debug or Info")
-
-	app := fiber.New(fiber.Config{
-		Prefork:       false,
-		CaseSensitive: true,
-		StrictRouting: true,
-		ServerHeader:  "Test App v1.0.0",
-		// ErrorHandler: ,
-		AppName:     "Fiber",
-		ReadTimeout: time.Second * 5,
-	})
-	// only fork under production mode
-	// if !fiber.IsChild() {
-	// 	fmt.Println("I'm the parent process")
-	// } else {
-	// 	fmt.Println("I'm a child process")
-	// }
-	// app.Use(limiter.New(limiter.Config{
-	// 	Expiration: 30 * time.Second,
-	// 	Max:        3,
-	// }))
-
-	logOutput := "${yellow}[DEBUG] ${reset}- " +
-		"${white}${time} ${reset}- ${magenta}${status} ${reset}- " +
-		"${green}${method} ${reset}- ${white}${latency} ${reset}- ${cyan}${path}\n"
-	app.Use(logger.New(logger.Config{
-		Format:       logOutput,
-		TimeInterval: 500 * time.Millisecond,
-		TimeZone:     "America/New_York",
-	}))
+	app := createApp(config.Server)
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Hello, World 👋!")
 	})
 
-	db, err := data.InitializeDB()
+	db, err := data.InitializeDB(config.Database)
 	if err != nil {
-		log.Err(err)
-		return
-	}
-	if err := data.SyncStructs(db.DB); err != nil {
 		log.Err(err)
 		return
 	}
@@ -75,6 +51,26 @@ func Start() {
 	}
 }
 
+func createApp(serverConf config.Server) *fiber.App {
+	app := fiber.New(fiber.Config{
+		Prefork:      serverConf.Prefork,
+		ServerHeader: "Test App v1.0.0",
+		AppName:      "Fiber",
+		ReadTimeout:  time.Second * time.Duration(serverConf.ReadTimeout),
+	})
+	// only fork under production mode
+	// if !fiber.IsChild() {
+
+	logOutput := "${yellow}[DEBUG] ${reset}- " +
+		"${white}${time} ${reset}- ${magenta}${status} ${reset}- " +
+		"${green}${method} ${reset}- ${white}${latency} ${reset}- ${cyan}${path}\n"
+	app.Use(logger.New(logger.Config{
+		Format:   logOutput,
+		TimeZone: "America/New_York",
+	}))
+
+	return app
+}
 func run(app *fiber.App) error {
 	go func() {
 		if err := app.Listen(":8000"); err != nil {
