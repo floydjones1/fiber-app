@@ -34,7 +34,7 @@ import (
 )
 
 // Version of current fiber package
-const Version = "2.15.0"
+const Version = "2.16.0"
 
 // Handler defines a function to serve HTTP requests.
 type Handler = func(*Ctx) error
@@ -147,7 +147,7 @@ type Config struct {
 	// When set to true, converts all encoded characters in the route back
 	// before setting the path for the context, so that the routing,
 	// the returning of the current url from the context `ctx.Path()`
-	// and the paramters `ctx.Params(%key%)` with decoded characters will work
+	// and the parameters `ctx.Params(%key%)` with decoded characters will work
 	//
 	// Default: false
 	UnescapePath bool `json:"unescape_path"`

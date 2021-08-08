@@ -1,7 +1,7 @@
 # github.com/andybalholm/brotli v1.0.3
 ## explicit
 github.com/andybalholm/brotli
-# github.com/gofiber/fiber/v2 v2.15.0
+# github.com/gofiber/fiber/v2 v2.16.0
 ## explicit
 github.com/gofiber/fiber/v2
 github.com/gofiber/fiber/v2/internal/bytebufferpool
@@ -14,11 +14,16 @@ github.com/gofiber/fiber/v2/internal/schema
 github.com/gofiber/fiber/v2/internal/uuid
 github.com/gofiber/fiber/v2/middleware/logger
 github.com/gofiber/fiber/v2/utils
+# github.com/gofiber/jwt/v2 v2.2.5
+## explicit
+# github.com/golang-jwt/jwt v3.2.2+incompatible
+## explicit
+github.com/golang-jwt/jwt
 # github.com/golang/snappy v0.0.3
 github.com/golang/snappy
 # github.com/json-iterator/go v1.1.11
 github.com/json-iterator/go
-# github.com/klauspost/compress v1.13.1
+# github.com/klauspost/compress v1.13.3
 ## explicit
 github.com/klauspost/compress/flate
 github.com/klauspost/compress/gzip
@@ -66,7 +71,11 @@ github.com/valyala/fasthttp/reuseport
 github.com/valyala/fasthttp/stackless
 # github.com/valyala/tcplisten v1.0.0
 github.com/valyala/tcplisten
-# golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c
+# golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97
+## explicit
+golang.org/x/crypto/bcrypt
+golang.org/x/crypto/blowfish
+# golang.org/x/sys v0.0.0-20210806184541-e5e7981a1069
 ## explicit
 golang.org/x/sys/internal/unsafeheader
 golang.org/x/sys/unix

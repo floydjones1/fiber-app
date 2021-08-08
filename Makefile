@@ -8,6 +8,9 @@ down:
 start:
 	modd
 
+build: 
+	go build -mod vendor -o ./bin/server ./cmd/server/main.go
+
 ## make create-migration [name_of_migration_file] [sql/go]
 create-migration:
 	./bin/goose create $(filter-out $@,$(MAKECMDGOALS))

@@ -1,21 +1,19 @@
 package data
 
 import (
-	"fmt"
 	"time"
 
-	"github.com/rs/zerolog/log"
 	"xorm.io/xorm"
 )
 
 type User struct {
 	Id        int64
 	Name      string
-	Email     int64
-	Password  bool
-	IsDeleted string
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	Email     string
+	Password  string
+	IsDeleted bool
+	CreatedAt time.Time `xorm:"created"`
+	UpdatedAt time.Time `xorm:"created"`
 }
 
 func (m *User) TableName() string {
@@ -27,14 +25,19 @@ type UserStore struct {
 }
 type UserStorer interface {
 	GetUser(int64) (User, error)
+	InsertUser(user *User) error
 }
 
-func (u *UserStore) GetUserByEmail(email string) (User, error) {
+func (u *UserStore) GetUserByEmail(email string) (*User, bool, error) {
 	user := new(User)
-	_, err := u.db.Where("email = ?", email).Get(user)
+	found, err := u.db.Where("email = ?", email).Get(user)
 	if err != nil {
-		log.Err(err).Msgf("failed to find user")
+		return nil, found, err
 	}
-	fmt.Println(err)
-	return *user, err
+	return user, found, err
+}
+
+func (u *UserStore) InsertUser(user *User) error {
+	_, err := u.db.Insert(user)
+	return err
 }
