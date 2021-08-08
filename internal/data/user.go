@@ -11,10 +11,11 @@ import (
 type User struct {
 	Id        int64
 	Name      string
-	Dob       time.Time
-	Age       int64
-	IsMarried bool
-	Sexuality string
+	Email     int64
+	Password  bool
+	IsDeleted string
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
 
 func (m *User) TableName() string {
@@ -28,9 +29,9 @@ type UserStorer interface {
 	GetUser(int64) (User, error)
 }
 
-func (u *UserStore) GetUser(id int64) (User, error) {
+func (u *UserStore) GetUserByEmail(email string) (User, error) {
 	user := new(User)
-	_, err := u.db.Get(user)
+	_, err := u.db.Where("email = ?", email).Get(user)
 	if err != nil {
 		log.Err(err).Msgf("failed to find user")
 	}

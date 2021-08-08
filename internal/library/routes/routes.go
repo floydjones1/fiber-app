@@ -1,40 +1,30 @@
 package routes
 
 import (
-	"fmt"
-
 	"github.com/floydjones1/fiber-app/internal/data"
+	"github.com/floydjones1/fiber-app/internal/library/services"
 	"github.com/gofiber/fiber/v2"
 )
 
-type BookService struct {
-	Store data.Stores
-}
 type Options struct {
 	Store *data.Stores
 }
 
 func SetupHandlers(app *fiber.App, opt Options) {
-	bookSvc := BookService{
+	bookSvc := services.BookService{
 		Store: *opt.Store,
 	}
-	group := app.Group("/books")
-	group.Get("/", bookSvc.GetBooks)
-	group.Get("/error", bookSvc.Error)
 
-}
+	authSvc := services.AuthService{
+		Store: *opt.Store,
+	}
 
-func (b *BookService) GetBooks(c *fiber.Ctx) error {
-	fmt.Println("here we go")
-	b.Store.UserStore.GetUser(2)
-	return c.Status(200).JSON(&fiber.Map{
-		"success": false,
-		"error":   "There are no posts!",
-	})
+	bookGroup := app.Group("/books")
+	bookGroup.Get("/", bookSvc.GetBooks)
+	bookGroup.Get("/error", bookSvc.Error)
 
-}
-
-func (b *BookService) Error(c *fiber.Ctx) error {
-
-	return fiber.NewError(fiber.StatusServiceUnavailable, "Books on vacation!")
+	authGroup := app.Group("/auth")
+	authGroup.Post("/signup", authSvc.SignUp)
+	authGroup.Post("/login", authSvc.Login)
+	authGroup.Post("/logout", authSvc.Logout)
 }

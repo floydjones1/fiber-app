@@ -9,9 +9,9 @@ import (
 )
 
 type Stores struct {
-	DB *xorm.Engine
-	UserStore
-	BookStore
+	DB   *xorm.Engine
+	User UserStore
+	Book BookStore
 }
 
 var engine *xorm.Engine
@@ -29,8 +29,8 @@ func InitializeDB(dbConf config.Database) (*Stores, error) {
 	}
 
 	stores := &Stores{
-		DB:        engine,
-		UserStore: UserStore{db: engine},
+		DB:   engine,
+		User: UserStore{db: engine},
 	}
 
 	return stores, nil

@@ -16,10 +16,11 @@ type Database struct {
 }
 
 type Server struct {
-	Host        string `yaml:"host"`
-	Port        int    `yaml:"port"`
-	Prefork     bool   `yaml:"prefork"`
-	ReadTimeout int    `yaml:"timeout"`
+	Host                  string `yaml:"host"`
+	Port                  int    `yaml:"port"`
+	Prefork               bool   `yaml:"prefork"`
+	ReadTimeout           int    `yaml:"timeout"`
+	DisableStartupMessage bool   `yaml:"disableStartupMessage"`
 }
 
 type Config struct {

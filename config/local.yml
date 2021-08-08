@@ -3,6 +3,7 @@ server:
   port: 8080
   prefork: false
   timeout: 10
+  disableStartupMessage: true
 
 database:
   host: localhost

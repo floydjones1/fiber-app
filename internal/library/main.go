@@ -53,10 +53,11 @@ func Start() {
 
 func createApp(serverConf config.Server) *fiber.App {
 	app := fiber.New(fiber.Config{
-		Prefork:      serverConf.Prefork,
-		ServerHeader: "Test App v1.0.0",
-		AppName:      "Fiber",
-		ReadTimeout:  time.Second * time.Duration(serverConf.ReadTimeout),
+		Prefork:               serverConf.Prefork,
+		ServerHeader:          "Test App v1.0.0",
+		AppName:               "Fiber",
+		ReadTimeout:           time.Second * time.Duration(serverConf.ReadTimeout),
+		DisableStartupMessage: serverConf.DisableStartupMessage,
 	})
 	// only fork under production mode
 	// if !fiber.IsChild() {
