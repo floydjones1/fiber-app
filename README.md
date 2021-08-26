@@ -33,6 +33,12 @@ make up <-- Startup Postgres
 make start <-- Runs go-fiber
 ```
 
+## How to run test?
+```go
+go generate ./...
+go test ./...
+```
+
 ### Package Structure inspiration was taken from 
 1. [Standard Go Project Layout](https://github.com/golang-standards/project-layout)
 2. [Package Oriented Design](https://www.youtube.com/watch?v=spKM5CyBwJA)

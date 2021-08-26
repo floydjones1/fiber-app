@@ -31,3 +31,7 @@ tools:
 	go build -o ./bin/goose ./cmd/goose/main.go && \
 	cd ~ && \
 	go get github.com/cortesi/modd/cmd/modd \
+	github.com/vektra/mockery/v2/.../
+
+create-mocks:
+	rm -rf ./internal/data/mocks && go generate ./...

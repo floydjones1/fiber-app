@@ -6,14 +6,16 @@ import (
 	"xorm.io/xorm"
 )
 
+//go:generate mockery --name UserStorer --structname MockUserStore --filename user.go
+
 type User struct {
-	Id        int64
-	Name      string
-	Email     string
-	Password  string
-	IsDeleted bool
-	CreatedAt time.Time `xorm:"created"`
-	UpdatedAt time.Time `xorm:"created"`
+	Id        int64     `json:"id"`
+	Name      string    `json:"name"`
+	Email     string    `json:"email"`
+	Password  string    `json:"-"`
+	IsDeleted bool      `json:"-"`
+	CreatedAt time.Time `json:"createdAt" xorm:"created"`
+	UpdatedAt time.Time `json:"updatedAt" xorm:"created"`
 }
 
 func (m *User) TableName() string {
@@ -23,8 +25,11 @@ func (m *User) TableName() string {
 type UserStore struct {
 	db *xorm.Engine
 }
+
+var _ UserStorer = (*UserStore)(nil)
+
 type UserStorer interface {
-	GetUser(int64) (User, error)
+	GetUserByEmail(email string) (*User, bool, error)
 	InsertUser(user *User) error
 }
 
